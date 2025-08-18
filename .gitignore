@@ -1,0 +1,68 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+vemv/       
+
+# Django stuff
+*.log
+*.pot
+*.py[cod]
+*.sqlite3     # local SQLite DB
+db.sqlite3
+db.sqlite3-journal
+
+# Django migrations
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Media files (uploads)
+media/
+uploads/
+
+# Static files (if collected locally)
+staticfiles/
+static/
+
+1.py
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor & system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pycharm
+*.iml
+*.ipr
+*.iws
