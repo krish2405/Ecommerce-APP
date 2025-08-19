@@ -2,6 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
+from Order.tasks import send_order_confirmation_email
 
 from .models import Order, OrderItem
 from .serializers import OrderSerializer
@@ -13,7 +14,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+        return Order.objects.filter(user=self.request.user,status="PENDING")
 
     def post(self, request, *args, **kwargs):
         user = request.user
@@ -37,6 +38,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
 
             order.total_price = total
             order.save()
+            send_order_confirmation_email.delay(order.id, user.email)
 
             # Clear the cart
             cart.items.all().delete()
