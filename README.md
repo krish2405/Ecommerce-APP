@@ -4,8 +4,8 @@ This project is a minimal e-commerce backend built with Django, Django REST Fram
 
 1. Clone the Repository
 # Clone the project and navigate into it
-git clone https://github.com/krish2405/Project_Alpha.git
-cd Project_Alpha
+git clone https://github.com/krish2405/Ecommerce-APP.git
+cd Ecommerce-APP
 
 2. Create .env File
 make changes in the .env file according to your db 
