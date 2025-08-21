@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Shop{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #2c2c2c; /* dark grey background */
+      color: #f1f1f1; /* make text readable */
+    }
+    .container {
+      background-color: #3a3a3a; /* slightly lighter than body */
+      padding: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'product_list' %}">MyShop</a>
+      <div>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-light">Products</a>
+        <a href="{% url 'cart' %}" class="btn btn-outline-light">Cart</a>
+        <a href="{% url 'orders' %}" class="btn btn-outline-light">Orders</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
