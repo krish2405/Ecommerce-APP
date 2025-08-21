@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<h2>Your Orders</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Status</th>
+      <th>Total</th>
+      <th>Products</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  {% if orders %}
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.status }}</td>
+      <td>₹{{ order.total_price }}</td>
+      
+
+          {% for item in order.items %}
+            
+             <td>  {{ item.product_name }} </td> 
+             <td>{{ item.quantity }}</td> 
+              <td>{{ item.price }}</td>
+           
+          {% empty %}
+            <li>No items</li>
+          {% endfor %}
+        <td> 
+            <form method="post" action="{% url 'make_payment' %}">
+            
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <button class="btn btn-info">Makepayment</button>
+        </td>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% else %}
+  <p>No orders yet.</p>
+  {% endif %}
+</table>
+{% endblock %}
