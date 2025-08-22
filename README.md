@@ -26,3 +26,5 @@ pip install -r requirements.txt
 
 The Superuser can only update or create a product ,rest registered user can only buy or see products
 
+Here is the link for the collection of api and urls used in project:
+https://web.postman.co/workspace/My-Workspace~be73eb3d-406a-4238-8417-416b885fa3a2/collection/25232433-eb393265-d59f-4023-b917-8f932b1a1753?action=share&source=copy-link&creator=25232433
