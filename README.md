@@ -4,8 +4,8 @@ This project is a minimal e-commerce backend built with Django, Django REST Fram
 
 1. Clone the Repository
 # Clone the project and navigate into it
-git clone https://github.com/krish2405/Ecommerce-APP.git
-cd Ecommerce-APP
+git clone https://github.com/krish2405/Project_Alpha.git
+cd Project_Alpha
 
 2. Create .env File
 make changes in the .env file according to your db 
@@ -23,14 +23,6 @@ Install Python Dependencies ,Inside the web container:
 pip install -r requirements.txt
 
 4.Migrate Database and Create Superuser
-# Make migrations and migrate DB
-python manage.py makemigrations
-python manage.py migrate
 
-# Create a Django superuser
-python manage.py createsuperuser
-
-# Collect static files for admin UI
-python manage.py collectstatic --noinput
-
+The Superuser can only update or create a product ,rest registered user can only buy or see products
 

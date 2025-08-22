@@ -1,6 +1,8 @@
 import requests
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.contrib import messages
+from .forms import ProductForm
 
 API_BASE = "http://localhost:8000/api"
 
@@ -38,6 +40,60 @@ def register(request):
             return render(request, "register.html", {"error": response.json()})
 
     return render(request, "register.html")
+
+
+#---Add product----
+
+def create_product(request):
+
+    try:
+        print("Fetching categories from API...")
+        cat_response = requests.get(API_BASE + "/categories/",headers=get_headers(request))
+
+        if cat_response.status_code != 200:
+            print(f"Failed to fetch categories. Status code: {cat_response.status_code}, Response: {cat_response.text}")
+            messages.error(request, "Not authorized")
+            categories = []
+            category_choices = []
+            return render(request, "create_product.html", {"form": None,messages:["Not authorized"]})  
+        print(f"Categories API response status: {cat_response.status_code}, response: {cat_response.text}")
+        categories = cat_response.json() 
+        print(f"Categories fetched: {categories}")
+        category_choices = [(c["id"], c["name"]) for c in categories]
+    except Exception as e:
+        categories = []
+        category_choices = []
+    
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        form.fields["category"].choices = category_choices 
+
+        if form.is_valid():
+            data = form.cleaned_data
+            payload = {
+                "name": data["name"],
+                "description": data["description"],
+                "price": str(data["price"]),  # convert Decimal to string
+                "Category": int(data["category"]),
+            }
+            response = requests.post(
+                API_BASE + "/products/",
+                json=payload,
+                headers=get_headers(request)
+            )
+
+            if response.status_code == 201:
+                messages.success(request, "Product created successfully!")
+                return redirect("create_product")  # reload form page
+            else:
+                messages.error(request, f" Error: {response.json()}")
+    else:
+        form = ProductForm()
+        form.fields["category"].choices = category_choices
+
+    return render(request, "create_product.html", {"form": form})
+
+
 
 # --- Login Page ---
 def login_view(request):
@@ -137,8 +193,9 @@ def make_order(request):
 def orders_view(request):
     response = requests.get(f"{API_BASE}/orders/", headers=get_headers(request))
 
+
     if response.status_code != 200:
-        return render(request, "orders.html", {"error": "Failed to fetch orders"})
+        return render(request, "order.html", {"error": "Failed to fetch orders"})
 
     orders = response.json()
     print(orders)
@@ -159,6 +216,7 @@ def make_payment(request):
         print(f"Request data: {request.POST}")
         response=requests.put(f"{API_BASE}/orders/{order_id}/pay/", headers=get_headers(request), data={"status": "PAID"})
         if response.status_code == 200:
+            messages.success(request, "Payment successful")
             return redirect("orders")
         else:
             return render(request, "orders.html", {"error": "Failed to update order status"})

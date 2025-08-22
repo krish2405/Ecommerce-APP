@@ -24,7 +24,7 @@
       <td>{{ order.status }}</td>
       <td>₹{{ order.total_price }}</td>
       
-
+    
           {% for item in order.items %}
             
              <td>  {{ item.product_name }} </td> 
@@ -49,4 +49,13 @@
   <p>No orders yet.</p>
   {% endif %}
 </table>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 {% endblock %}
