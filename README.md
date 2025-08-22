@@ -3,9 +3,8 @@ E-Commerce Django Project
 This project is a minimal e-commerce backend built with Django, Django REST Framework, MySQL, Redis, and Celery. It supports JWT authentication, product management, cart and order handling, and asynchronous task processing with Celery.
 
 1. Clone the Repository
-# Clone the project and navigate into it
-git clone https://github.com/krish2405/Project_Alpha.git
-cd Project_Alpha
+# Clone the project and navigate into it project folder
+
 
 2. Create .env File
 make changes in the .env file according to your db 
