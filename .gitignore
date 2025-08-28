@@ -34,7 +34,8 @@ static/
 1.py
 
 # Environment variables
-.env
+# .env
+.env.production
 .env.local
 .env.*.local
 
